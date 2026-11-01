@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nexus Client</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Caveat:wght@700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0e0a1c;--surf:#18122e;--line:#2c2350;--tx:#f1ecff;--mu:#a79cc9;--ac:#8b5cf6;--ac2:#e879f9;--glow:rgba(139,92,246,.35);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f6f2ff;--surf:#fff;--line:#ddd2fa;--tx:#1d1238;--mu:#5d4f86;--ac:#7c3aed;--glow:rgba(124,58,237,.2)}}
+:root[data-theme="light"]{--bg:#f6f2ff;--surf:#fff;--line:#ddd2fa;--tx:#1d1238;--mu:#5d4f86;--ac:#7c3aed;--glow:rgba(124,58,237,.2)}
+:root[data-theme="dark"]{--bg:#0e0a1c;--surf:#18122e;--line:#2c2350;--tx:#f1ecff;--mu:#a79cc9;--ac:#8b5cf6;--glow:rgba(139,92,246,.35)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:500 17px/1.6 "Bricolage Grotesque",system-ui,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(520px circle at var(--mx,50%) var(--my,30%),var(--glow),transparent 70%);z-index:0}
+main,header,footer{position:relative;z-index:1}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font-weight:800;font-size:22px;text-decoration:none;letter-spacing:-.02em}
+.logo b{color:var(--ac)}
+nav a.l{color:var(--mu);text-decoration:none;margin-left:22px;font-size:15px}
+nav a.l:hover{color:var(--tx)}
+.hero{padding:56px 0 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+h1{font-size:clamp(40px,7vw,78px);line-height:1;letter-spacing:-.035em;font-weight:800;margin:0 0 20px}
+h1 span{background:linear-gradient(90deg,#60a5fa,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mu);max-width:46ch;margin:0 0 28px}
+.btn{display:inline-block;padding:13px 24px;border-radius:12px;background:var(--ac);color:#fff;text-decoration:none;font-weight:700;box-shadow:0 8px 30px var(--glow)}
+.btn.g{background:transparent;border:1px solid var(--line);box-shadow:none;color:var(--tx);margin-left:10px}
+.demo{background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:22px}
+.demo h3{margin:0 0 4px;font-size:18px}
+.demo p{margin:0 0 16px;color:var(--mu);font-size:14px}
+.msg{display:flex;gap:12px;align-items:center;background:var(--bg);border-radius:14px;padding:16px;margin-bottom:16px;min-height:76px}
+.av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--ac2));flex:none}
+#nm{font-size:22px;font-weight:700;word-break:break-word}
+.t{font-size:14px;color:var(--mu)}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.row button,.sw{font:inherit;font-size:14px;border:1px solid var(--line);background:transparent;color:var(--tx);border-radius:999px;padding:6px 14px;cursor:pointer}
+.row button[aria-pressed=true]{background:var(--ac);border-color:var(--ac);color:#fff}
+.sw{width:30px;height:30px;padding:0;border-radius:50%}
+.sw[aria-pressed=true]{outline:2px solid var(--tx);outline-offset:2px}
+input{font:inherit;width:100%;background:var(--bg);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:12px}
+:focus-visible{outline:2px solid var(--ac2);outline-offset:3px}
+section{padding:64px 0}
+h2{font-size:clamp(28px,4vw,42px);letter-spacing:-.025em;margin:0 0 8px;line-height:1.1}
+.lead{color:var(--mu);margin:0 0 32px;max-width:52ch}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.col{border-top:3px solid var(--ac);background:var(--surf);padding:24px;border-radius:4px 4px 18px 18px}
+.col:nth-child(2){border-color:var(--ac2)}
+.col:nth-child(3){border-color:#60a5fa}
+.col h3{margin:0 0 14px;font-size:21px}
+.col ul{margin:0;padding:0;list-style:none}
+.col li{padding:9px 0;border-bottom:1px solid var(--line);font-size:16px}
+.col li:last-child{border:0}
+.col li::before{content:"+";color:var(--ac2);font-weight:800;margin-right:10px}
+.log{border-left:2px solid var(--line);margin-left:6px;padding-left:28px}
+.rel{position:relative;margin-bottom:34px}
+.rel::before{content:"";position:absolute;left:-37px;top:8px;width:16px;height:16px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 5px var(--glow)}
+.rel h3{margin:0 0 8px;font-size:22px}
+.rel ul{margin:0;padding-left:18px;color:var(--mu)}
+footer{padding:40px 0 60px;color:var(--mu);font-size:14px;border-top:1px solid var(--line)}
+.dot,.ring{position:fixed;left:0;top:0;pointer-events:none;z-index:99;display:none;border-radius:50%}
+.dot{width:8px;height:8px;background:var(--ac2);margin:-4px 0 0 -4px}
+.ring{width:38px;height:38px;margin:-19px 0 0 -19px;border:2px solid var(--ac);transition:width .2s,height .2s,margin .2s,background .2s,border-color .2s}
+.ring.h{width:64px;height:64px;margin:-32px 0 0 -32px;background:var(--glow);border-color:var(--ac2)}
+.ring.c{width:22px;height:22px;margin:-11px 0 0 -11px}
+@media(pointer:fine){.cur .dot,.cur .ring{display:block}.cur,.cur *{cursor:none!important}}
+@media(max-width:820px){.hero,.cols{grid-template-columns:1fr}.btn.g{margin:10px 0 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ring{transition:none}}
+</style>
+</head>
+<body>
+<div class="dot" id="dot"></div><div class="ring" id="ring"></div>
+<header class="wrap"><nav>
+<a class="logo" href="#top">Nexus <b>Client</b></a>
+<div><a class="l" href="#features">Features</a><a class="l" href="#log">Build Log</a></div>
+</nav></header>
+<main id="top">
+<div class="wrap hero">
+<div>
+<h1>Dein Discord. <span>Dein Look.</span> Ohne Preisschild.</h1>
+<p class="sub">Nexus Client ist unser eigener Discord. Banner, GIFs, Namensdesign und Farbverlauf-Rollen kosten bei uns nichts.</p>
+<a class="btn" href="#features" data-h>Features ansehen</a><a class="btn g" href="#log" data-h>Build Log</a>
+</div>
+<div class="demo">
+<h3>Probier dein Namensdesign aus</h3>
+<p>So sieht dein Name im Chat aus.</p>
+<div class="msg"><div class="av"></div><div><div id="nm">Dein Name</div><div class="t">So sieht dein Name im Chat aus.</div></div></div>
+<input id="inp" maxlength="24" placeholder="Name eingeben" aria-label="Name eingeben" data-h>
+<div class="row" id="fonts" aria-label="Schrift">
+<button aria-pressed="true" data-f="Bricolage Grotesque" data-h>Standard</button>
+<button aria-pressed="false" data-f="Caveat" data-h>Handschrift</button>
+<button aria-pressed="false" data-f="Instrument Serif" data-h>Serif</button>
+</div>
+<div class="row" id="cols" aria-label="Farbe">
+<button class="sw" aria-label="Violett" aria-pressed="true" data-c="#a78bfa" style="background:#a78bfa" data-h></button>
+<button class="sw" aria-label="Pink" aria-pressed="false" data-c="#f472b6" style="background:#f472b6" data-h></button>
+<button class="sw" aria-label="Cyan" aria-pressed="false" data-c="#22d3ee" style="background:#22d3ee" data-h></button>
+<button class="sw" aria-label="Gold" aria-pressed="false" data-c="#fbbf24" style="background:#fbbf24" data-h></button>
+<button class="sw" aria-label="Farbverlauf" aria-pressed="false" data-c="grad" style="background:linear-gradient(135deg,#60a5fa,#e879f9)" data-h></button>
+</div>
+</div>
+</div>
+
+<section id="features"><div class="wrap">
+<h2>Gratis, was woanders Geld kostet</h2>
+<p class="lead">Drei Bereiche, ein Prinzip: Du gestaltest, wir verlangen nichts dafür.</p>
+<div class="cols">
+<div class="col"><h3>Profil</h3><ul>
+<li>Eigene Profilbanner und GIFs ohne Kosten</li>
+<li>Eigene Namensschrift und eigenes Namensdesign</li>
+<li>Custom User Tags für alle, die uns seit Tag eins unterstützen</li></ul></div>
+<div class="col"><h3>Server</h3><ul>
+<li>Farbverlauf-Rollen ohne Kosten</li>
+<li>Animiertes Server-Icon und Server-Banner gratis</li>
+<li>Nur die wichtigen Rollenrechte</li></ul></div>
+<div class="col"><h3>Staff</h3><ul>
+<li>User Tags für Staff und Development</li>
+<li>Admin Panel auf dem neuesten Stand</li>
+<li>Praktikantenrang (Moderator)</li></ul></div>
+</div>
+</div></section>
+
+<section id="log"><div class="wrap">
+<h2>Build Log</h2>
+<p class="lead">Was in jeder Version dazugekommen ist.</p>
+<div class="log">
+<div class="rel"><h3>0.0.0.2</h3><ul>
+<li>Profil-Einstellungen</li><li>Eigenes Profilbanner und Profilbild</li><li>Server-Einstellungen</li><li>Farbwechsel-Rollen</li><li>Server-Icon und Server-Banner</li><li>Nexus-Staff-Tag und weitere Tags</li><li>Kostenlose Profilanpassung</li><li>Namensdesign</li></ul></div>
+<div class="rel"><h3>0.0.0.1</h3><ul>
+<li>Textnachrichten</li><li>Account-Einstellungen V1</li><li>Rollen-Einstellungen (Farbe)</li><li>Call HUD</li><li>Server erstellen über das Plus</li></ul></div>
+</div>
+</div></section>
+</main>
+<footer><div class="wrap">Nexus Client von Nexus Studios</div></footer>
+
+<script>
+(function(){
+var d=document.documentElement,rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+var dot=document.getElementById("dot"),ring=document.getElementById("ring");
+var x=innerWidth/2,y=innerHeight/3,rx=x,ry=y;
+if(matchMedia("(pointer:fine)").matches)document.documentElement.classList.add("cur");
+addEventListener("mousemove",function(e){x=e.clientX;y=e.clientY;dot.style.transform="translate("+x+"px,"+y+"px)";
+d.style.setProperty("--mx",x+"px");d.style.setProperty("--my",y+"px");
+var h=e.target.closest&&e.target.closest("a,button,input,[data-h]");ring.classList.toggle("h",!!h)});
+addEventListener("mousedown",function(){ring.classList.add("c")});
+addEventListener("mouseup",function(){ring.classList.remove("c")});
+(function f(){rx+=(x-rx)*(rm?1:.16);ry+=(y-ry)*(rm?1:.16);ring.style.transform="translate("+rx+"px,"+ry+"px)";requestAnimationFrame(f)})();
+var nm=document.getElementById("nm"),inp=document.getElementById("inp");
+function pick(id,fn){document.getElementById(id).addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
+this.querySelectorAll("button").forEach(function(o){o.setAttribute("aria-pressed",o===b)});fn(b)})}
+pick("fonts",function(b){nm.style.fontFamily='"'+b.dataset.f+'",system-ui,sans-serif';nm.style.fontSize=b.dataset.f==="Caveat"?"28px":"22px"});
+pick("cols",function(b){var c=b.dataset.c;if(c==="grad"){nm.style.background="linear-gradient(90deg,#60a5fa,#e879f9)";nm.style.webkitBackgroundClip=nm.style.backgroundClip="text";nm.style.color="transparent"}
+else{nm.style.background="none";nm.style.color=c}});
+nm.style.color="#a78bfa";
+inp.addEventListener("input",function(){nm.textContent=inp.value.trim()||"Dein Name"});
+})();
+</script>
+</body>
+</html>
